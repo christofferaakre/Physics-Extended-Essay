@@ -2,11 +2,8 @@ import math
 import plotly.offline as py
 import plotly.graph_objs as go
 
-import numpy
 print("Application started")
 
-n = 101
-numberOftValues = 101
 v = 340
 D = 248
 k = 244
@@ -14,8 +11,6 @@ l = 39
 A = 39
 B = 39
 S = 9
-
-includeDiffraction = True
 
 
 def is_number(string):
@@ -25,22 +20,6 @@ def is_number(string):
     except ValueError:
         return False
 
-
-print(
-    "Include diffraction in the theory? true or false (Default: 'true')")
-res = input()
-if (res == 'false'):
-    includeDiffraction = False
-else:
-    print(f"Number of sources used in the approximation (Default: {n})")
-    res = input()
-    if is_number(res):
-        n = float(res)
-
-    print(f"Number of t values to use (Default: {numberOftValues})")
-    res = input()
-    if is_number(res):
-        numberOftValues = float(res)
 
 print("Use default parametres? (say yes if grabbing parametres from a text file)")
 res = input()
@@ -81,17 +60,11 @@ omega = 2 * math.pi / l * v
 period = 2 * math.pi / omega
 
 
-def t_n(x):
-    return x * 2 * math.pi / (omega * numberOftValues)
-
-
 def convert_decibel_to_intensity(dB):
     return 10 ** (-12) * 10 ** (dB / 10)
 
 
 def convert_intensity_to_decibel(intensity):
-    # Multiplying my 10^(12) is
-    # almost certainly faster than dividing by 10^(-12)
     return 10*math.log10(intensity * 10**(12))
 
 
@@ -111,53 +84,6 @@ def I(x):
     return (1/k**2) * (A**2 / (d_a(x))**4 + 2*A*B*math.cos(phi(x)) / ((d_a(x))**2 * (d_b(x))**2) + B**2 / (d_b(x))**4)
 
 
-def d_ai(x, i):
-    return math.sqrt(D**2 + (x - i*A / n - (B + S) / 2)**2)
-
-
-def d_bi(x, i):
-    return math.sqrt(D**2 + (x - i*B / n + (A + S) / 2)**2)
-
-
-def phi_a(x, i):
-    return 2*math.pi / l * (d_a(x) - d_ai(x, i))
-
-
-def phi_b(x, i):
-    return 2 * math.pi / l * (d_a(x) - d_bi(x, i))
-
-
-def partial_A_d(x, t, i):
-    return math.sin(omega * t + phi_a(x, i)) / d_ai(x, i)
-
-
-def partial_B_d(x, t, i):
-    return math.sin(omega * t + phi_b(x, i)) / d_bi(x, i)
-
-
-def I_d(x):
-    amplitude_a = 0
-    amplitude_b = 0
-    # Loop over all the t values used in the approximation
-    i = 1
-    while (i <= numberOftValues):
-        time = t_n(i)
-        # Loop over all the sources used in Huygen's approximation
-        j = -(n - 1) / 2
-        while (j <= (n - 1) / 2):
-            amplitude_a += partial_A_d(x, time, j)
-            amplitude_b += partial_B_d(x, time, j)
-            j += 1
-        i += 1
-    amplitude_a *= A
-    amplitude_b *= B
-    amplitude = amplitude_a + amplitude_b
-    # Divide by number of t values to get average; also divide by number of sources used
-    amplitude = amplitude / (numberOftValues * n)
-    intensity = amplitude ** 2
-    return intensity
-
-
 print("Creating lists...")
 # Lists for measured values
 X = []
@@ -166,12 +92,6 @@ Y = []
 # Lists for predicted values
 tx = []
 ty = []
-
-# Lists for predicted values accounting for diffraction
-if (includeDiffraction):
-    diffx = []
-    diffy = []
-
 
 values = []
 points = []
@@ -240,23 +160,14 @@ layout = go.Layout(
 
 print("Generating theoretical prediction...")
 # Generate a theoretical prediction
-# with and without accounting for diffraction
 # of the y value for each x value measured experimentally
 i = 0
 while (i < len(X)):
     tx.append(X[i])
     ty.append(I(X[i]))
-    if (includeDiffraction):
-        diffx.append(X[i])
-        diffy.append(I_d(X[i]))
     if (int(round(i + 1 / len(X))) > int(round(i / len(X)))):
         print(f"{int(round((i + 1) / len(X) * 100))}%")
     i += 1
-print("Below are the lists:")
-print(f"Y: {Y}")
-print(f"ty: {ty}")
-if (includeDiffraction):
-    print(f"diffy: {diffy}")
 
 print("Saving data to text file...")
 
@@ -268,8 +179,6 @@ if (experiment_filename):
 
     print(
         f"Saved experimental data to data/experimental/{experiment_filename}")
-
-    # Save experimental data to separate text file
 
     # Write parametres
     experimental_file.write("%s\n" %
@@ -294,7 +203,7 @@ thefile = open(f'data/{filename}.txt', 'w')
 
 # Write parametres
 thefile.write("%s\n" %
-              f"D={D}, k={k}, lambda={l}, A={A}, B={B}, S={S}, {f'n={n}, number of t values: {numberOftValues}' if includeDiffraction else ''}"
+              f"D={D}, k={k}, lambda={l}, A={A}, B={B}, S={S}"
               )
 
 print("Saving experimental data")
@@ -311,7 +220,7 @@ while i < len(X):
                   )
     i += 1
 
-print("Saving theoretical data without diffraction")
+print("Saving theoretical data")
 
 # Write header 'Theory'
 thefile.write('\n%s\n' % 'Theory')
@@ -322,20 +231,6 @@ while i < len(X):
     thefile.write("%s\n" %
                   f'{tx[i]}      {convert_intensity_to_decibel(ty[i])} dB      {ty[i]}')
     i += 1
-
-if (includeDiffraction):
-    print("Saving theoretical values with diffraction")
-
-    # Write header 'Theory with diffraction'
-    thefile.write('\n%s\n' % 'Theory with diffraction')
-
-    # Loop over predicted values accounting for diffraction and save
-    # them to text file
-    i = 0
-    while i < len(X):
-        thefile.write("%s\n" %
-                      f'{diffx[i]}   {convert_intensity_to_decibel(diffy[i])} dB')
-        i += 1
 
 print("Normalising experimental values...")
 # Normalise the measured y-values to fit in [0, 1]
@@ -353,14 +248,6 @@ while i < len(ty):
     ty[i] = ty[i] / ty_max
     i += 1
 
-if (includeDiffraction):
-    # Normalise the predicted y-values accounting for diffraction to fit in[0, 1]
-    i = 0
-    diffy_max = max(diffy)
-    while i < len(diffy):
-        diffy[i] = diffy[i] / diffy_max
-        i += 1
-
 print("Saving normalised experimental data")
 
 # Write header 'Normalised experimental'
@@ -375,7 +262,7 @@ while i < len(X):
                   )
     i += 1
 
-print("Saving normalised theoretical values with no diffraction")
+print("Saving normalised theoretical values")
 
 # Write header 'Normalised theory'
 thefile.write('\n%s\n' % 'Normalised Theory')
@@ -386,20 +273,6 @@ while i < len(X):
     thefile.write("%s\n" %
                   f'{tx[i]}      {convert_intensity_to_decibel(ty[i])} dB      {ty[i]}')
     i += 1
-
-if (includeDiffraction):
-    print("Saving normalised theoretical values with diffraction")
-
-    # Write header 'Normalised theory with diffraction'
-    thefile.write('\n%s\n' % 'Normalised Theory with diffraction')
-
-    # Loop over predicted values accounting for diffraction and
-    # save them to text file
-    i = 0
-    while i < len(X):
-        thefile.write("%s\n" %
-                      f'{diffx[i]}      {convert_intensity_to_decibel(diffy[i])} dB      {diffy[i]}')
-        i += 1
 
 print("Creating traces...")
 
@@ -416,21 +289,10 @@ theory = go.Scatter(
     name='Theory without diffraction'
 )
 
-if (includeDiffraction):
-    # Create a trace 'Theory with diffraction' for the predicted values
-    # accounting for diffraction
-    diff_theory = go.Scatter(
-        x=diffx,
-        y=diffy,
-        name=f'Theory with diffraction - n={n}, number of t values: {numberOftValues}'
-    )
-
 print("Creating data from traces...")
 
 # Create the data from the traces
 data = [experimental, theory]
-if (includeDiffraction):
-    data.append(diff_theory)
 
 print("Creating figures using data and layout...")
 
