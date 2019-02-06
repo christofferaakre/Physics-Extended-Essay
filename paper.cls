@@ -12,17 +12,22 @@
 \RequirePackage{graphicx}
 \RequirePackage{csquotes}
 \RequirePackage{amsmath}
+\RequirePackage[makeroom]{cancel}
 \RequirePackage{amssymb}
 \RequirePackage{mathtools}
 \RequirePackage{float}
 \RequirePackage{setspace}
+\makeatletter
+\let\@xfloat=\latex@xfloat % revert setspace patch of floating environments
+\makeatother
 \RequirePackage{hyperref}
 \RequirePackage[nameinlink]{cleveref}
 \RequirePackage[labelfont=bf]{caption}
-\RequirePackage{siunitx}
+\RequirePackage[separate-uncertainty = true,multi-part-units=single]{siunitx}
 \RequirePackage{listings}
 \RequirePackage{letltxmacro}
-\RequirePackage{tikz, pgfplots}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
 \RequirePackage{bm}
 \RequirePackage[toc, page]{appendix}
 \pgfplotsset{compat=1.15}
@@ -64,6 +69,10 @@
     \newcommand{\sgn}[0]{\textnormal{sgn}}
 \newcommand{\bp}[1]{\textbf{\underline{#1}}}
     \newcommand{\sectionparagraph}[1]{\paragraph{\underline{#1.}}}
+\newcommand{\Var}[0]{\textnormal{Var}}
+
+\newcommand{\Quote}[1]{\enquote*{#1}}
+
 % Bibliography setup
 \addbibresource{references.bib}
 % Fix cross references
