@@ -16,7 +16,7 @@
     slits of equal width, and uses the small wavelength of light
     to its advantage, e.g. by performing approximations, to yield
     a simple yet reliable theory of interference. This paper 
-    attempts to extend the theory to other waves, such as sound waves,
+    attempts to explopre the using sound waves,
     that do not have such small wavelengths, and also attempts to 
     generalise the theory further to account for differing slit widths
     rather than restricting itself to two slits of the same width.
@@ -24,6 +24,82 @@
 \pagebreak
 \tableofcontents
 \pagebreak
+\section{Wave behaviour}
+In this section we introduce two basic characteristics of wave behaviour: \textbf{interference} and \textbf{diffraction}. 
+\subsection{Wave interference}
+\textbf{Waves} are a simple and usefull mathematical concept used by phycisists to desribe natural phenomena. Often, we use waves when something is oscillating or periodic, or when it exhibits such behaviours as \textbf{interference} or \textbf{diffraction}. We usually represent e.g. light, sound, etc. as sine waves. Below a sine wave is shown:
+
+\begin{figure}[H]
+\caption{A sine wave}
+\label{fig:sine-wave}
+\begin{tikzpicture}
+
+\draw (0,0) -- (10, 0) node[below, midway]{Time};
+\draw (0, -5) -- (0,0);
+\draw (0,0) -- (0, 5) node[above,rotate=90, midway]{Displacement};
+
+\draw[domain=0:10, samples=600] plot ({\x}, {5 * sin(\x * 1.2 r)});
+
+\end{tikzpicture}
+\end{figure}
+
+The sine wave in \figref{fig:sine-wave} could represent a sound wave, for example. Let us see what happens if we attempt to add two waves. For this text, we will only discuss adding waves of the same wavelength. Below is a figure showing two sine waves (blue and red) that are in phase, and the resultant wave (in green):
+
+\begin{figure}[H]
+\label{fig:adding-two-sine-waves}
+\caption{Superposition of waves}
+
+\begin{tikzpicture}
+
+\draw (0,0) -- (10, 0) node[midway, below]{Time};
+\draw (0, -5) -- (0, 0);
+\draw (0,0) --(0, 5) node[above, rotate=90, midway]{Displacement};
+
+\draw[red, domain=1:10, samples=600] plot ({\x}, {sin(\x * 1.2 r)});
+
+\draw[blue, domain=1:10, samples=600] plot ({\x}, {3 * sin(\x * 1.2 r});
+
+\draw[green, domain=1:10, samples=600] plot ({\x}, {4 * sin(\x * 1.2 r});
+
+
+\end{tikzpicture}
+
+\end{figure}
+
+As we see from the figure above, the two waves have added together to create a bigger wave! This is known as  \textbf{constructive interference}. Of course, if we shift a wave over by a phase shift of $2n\pi, n\in\mathbb{Z}$, or shift it over by a path difference of $n\lambda$, then the wave will be identical. Thus, in order to have constructive interference at any point, we have the criteria
+
+\begin{equation*}
+    \Delta x = n\lambda,
+\end{equation*}
+where $\Delta x$ is the path difference between the two waves.
+
+Now, if we shift one wave over by an angle of $\pi$, then the waves will add together to form a smaller wave:
+
+\begin{figure}[H]
+
+\begin{tikzpicture}
+
+\draw (0,0) -- (10, 0) node[midway, below]{Time};
+\draw (0, -5) -- (0, 0);
+\draw (0,0) --(0, 5) node[above, rotate=90, midway]{Displacement};
+
+\draw[red, domain=1:10, samples=600] plot ({\x}, {sin(\x * 1.2 r)});
+
+\draw[blue, domain=1:10, samples=600] plot ({\x}, {3 * sin(\x * 1.2 r});
+
+\draw[green, domain=1:10, samples=600] plot ({\x}, {sin(\x * 1.2 r) + 3 * sin((\x * 1.2 + pi) r});
+
+
+\end{tikzpicture}
+
+\end{figure}
+
+In this case, we see that we  end up with a wave with a smaller amplitude once we add the two waves together. If the two waves had the same amplitude, they would completely cancel each other out! This is known as \textbf{destructive interference}.
+
+\subsection{Wave diffraction}
+
+
+
 \section{Zero intensity points}
 \label{section:zero-intensity}
 
@@ -201,6 +277,7 @@ Notice that for zero intensity, there were two conditions:
 However, for total constructive interference, the first condition is not necessary,
 so there is only the condition in \eqref{eq:condition-constructive-interference}.
 \section{Finding an expression for the distances from the slits to a given point}
+\label{section:distance-formulas}
 Recall the diagram from \figref{fig:double-slit-different-widths}:
 
 \begin{figure}[H]
@@ -242,9 +319,10 @@ The distance from the top of slit $A$ to the bottom of slit $B$ is given by
 
 Therefore, the distance from the top of slit $A$ to the midpoint of the two slits is
 
-\begin{equation*}
+\begin{equation}
+\label{eq:distance-from-slit-A-to-midpoint}
     \frac{A + B + S}{2}.
-\end{equation*}
+\end{equation}
 
 Subtracting the distance from the top of slit $A$ to the middle of slit $A$ ($\frac{A}{2}$)
 gives the distance from the middle of slit $A$ to the midpoint of the two slits:
@@ -306,63 +384,384 @@ both slits, and square the total amplitude. Since intensity is proportional to t
 square of amplitude, and we are only interested in relative/arbitrary units, this is a
 legitimate method of obtaining the intensity.
             
-\subsection{Theoretical derivation}
-            
+    
 The amplitude coming from the slit with width $A$ a distance $d_a$ away from the point
-will contribute an amplitude
+will contribute a wave
             
 \begin{equation*}
-    amplitude_{a} = \frac{A}{d_{a}^{2}}\sin{\omega{}t}.
+    wave_{a} = \frac{A}{d_{a}^{2}}\sin{\omega{}t}.
 \end{equation*}
             
 Likewise, the other slit, with a width of $B$ a distance $d_{b}$ away from the point
-will contribute an amplitude 
+will contribute a wave 
             
 \begin{equation*}
-    amplitude_{b} = \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi).
+    wave_{b} = \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi).
 \end{equation*}
             
-So, adding them together, the amplitude of the superposition $S$ is given by
+So, adding them together, the superposition $S$ is given by
             
-\begin{equation*}
+\begin{equation}
+\label{eq:S-of-t}
     S = \frac{A}{d_{a}^{2}}\sin{\omega{}t} + \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi).
-\end{equation*}
+\end{equation}
+    
+Consider a wave that is a sum of waves of the same wavelength and phase. If we double the amplitude of the wave, then the wave's displacement will change \textbf{twice} as quickly, and thus, the wave's energy will change \textbf{four} times as quickly. Then, trivially, it will also change four times as quickly on average, and thus the intensity has quadrupled. So, we say that a wave's intensity is proportional to the square of its amplitude. The core of the argument is that the wave's \textbf{rate of change of energy} is proportional to the square of its \textbf{displacement}, and thus the intensity is proportional to the \textbf{average} if the square of the displacement of the wave. If all the parts of the wave are in phase, we can extend that and say that intensity is proportional to the amplitude of the wave since the square amplitude will indeed be proportional to the average square displacement.
+
+Now, consider a wave that is the sum of waves of the samelength but \textbf{different phase}. Then, we use the same argument: The rate of change of energy will be proportional to the wave's displacement. Then,
             
-Squaring the above expression gives the intensity $I$ at a given point:
+
+Squaring the above expression in \eqref{eq:S-of-t} gives the rate of change of energy $I(t)$ at a given point at a specific time:
             
 \begin{equation}
     \label{eq:superposition-intensity}
-    I = \left(\frac{A}{d_{a}^{2}}\sin{\omega{}t} + \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi)\right)^{2}.
+    I(t) = \left(\frac{A}{d_{a}^{2}}\sin{\omega{}t} + \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi)\right)^{2}.
 \end{equation}
 
-Notice, however, that the intensity seems to vary with time. However, if the frequency of the waves is
-very high, as is usually the case with light and/or sound waves, the human ear will not
-detect this variation; instead, a person would observe an \textit{average intensity}. Furthermore,
-the intensity is given by the square of a sum of sine functions. The sine function is periodic,
-so after one full period, the intensity will have taken all the vales it will ever take. So, we will find the average intensity
+Notice, however, that $I(t)$ seems to vary with time. So, we will find the average intensity $I$
 over one full period. During one period, $\omega{}t$ goes from $0$ to $2\pi$.
 Therefore, $t$ goes from $0$ to $\frac{2\pi}{\omega}$, and hence, we need to find the average
 intensity with respect to time over the interval $\left[0, \frac{2\pi}{\omega}\right]$. The average
 value of some function $f$ over some interval $[x_{0}, x_{1}]$ can be calculated by dividing the
-area under the curve on that interval by the length of the interval:
+area under the curve on that interval by the length of the interval.
+So, the intensity at a given point will be given by
 
-\begin{equation*}
-    \avg(f(x), [x_{0}, x_{1}]) = \frac{1}{x_{1} - x_{0}}\int_{x_0}^{x_1}f(x) \; dx.
-\end{equation*} 
-
-So, the average intensity at a given point will be given by
-
-\begin{equation*}
-    I_{avg} = \frac{\omega}{2\pi}\int_{0}^{2\pi/\omega}\left(\frac{A}{d_{a}^{2}}\sin{\omega{}t} 
+\begin{equation}
+    \label{eq:intensity-integral}
+    I = \frac{\omega}{2\pi}\int_{0}^{2\pi/\omega}\left(\frac{A}{d_{a}^{2}}\sin{\omega{}t} 
     + \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi)\right)^{2} \; dt.
+\end{equation}
+
+This integral is evaluated in \textbf{\hyperref[appendix:intensity-integral]{Appendix B}}.
+
+Now, using the derivation from \textbf{\hyperref[appendix:intensity-integral]{Appendix B}}, we obtain the following expresssion for the intensity:
+\begin{flalign*}
+    \begin{aligned}
+    &\quad{}I = \frac{\omega}{2\pi}\left[\frac{A^2}{d_a^4}\times\frac{\pi}{\omega}
+        + \frac{2AB}{d_{a}^{2}d_{b}^{2}}\times\frac{\pi}{\omega}\cos{\phi}
+        + \frac{B^2}{d_b^4}\times\frac{\pi}{\omega}\right] \\
+    &= \frac{1}{2}\left[\frac{A^2}{d_a^4} + 
+        \frac{2AB}{d_{a}^{2}d_{b}^{2}}\cos{\phi} + \frac{B^2}{d_b^4}\right].
+    \end{aligned}
+\end{flalign*}
+                
+However, since we are using arbitrary units, the factor of $\frac{1}{2}$ is of
+no importance, so we can obtain the formula
+
+\begin{equation*}
+    I = \frac{A^2}{d_a^4} + 
+    \frac{2AB}{d_{a}^{2}d_{b}^{2}}\cos{\phi} + \frac{B^2}{d_b^4}.
 \end{equation*}
 
-Expanding the integrand, we obtain the following expression for the intensity:
+However, this assumes that the waves are formed at the slits. In reality,
+the waves are formed first at the source, and then reformed at the slits due
+to diffraction. Let the perpendicular distance from the source to the slits be $k$. 
+Then, assuming the waves had an initial amplitude $A_{initial}$
+at the source, once they reach the slits, they will have an amplitude $\frac{A_{initial}}{k^2}$,
+due to the \textit{Law of Inverse Squares} \parencite{inverse-square}.
+Incorporating this into the expression for intensity above gives
+
+\begin{equation}
+\label{eq:expression-for-intensity}
+    I = \frac{1}{k^2}\left(\frac{A^2}{d_a^4} + 
+    \frac{2AB}{d_{a}^{2}d_{b}^{2}}\cos{\phi} + \frac{B^2}{d_b^4}\right).
+\end{equation}
+
+\section{Comparing the theory to experimental results}
+
+To test the theory, sound waves were used. It was expected that the theory
+would fit the experimental well when the wavelength used was much larger than
+the slit widths (corresponding to a low frequency), and that they would not agree
+very well when the wavelength used was not much larger than the slit widths.
+
+\subsection{The experiment}
+                
+A single speaker was placed in a classroom, a distance $k$ away from a doorway of width $87.5$ cm.
+In practice, $k$ was never varied; it was kept constant at $244$ cm. (A $1$ metre ruler was used for all distance measurements) A tall (taller than the doorway) piece of cardboard was used to define the slits. It was approximately $9$ cm wide. By placing the
+cardboard such that its centre was in the centre of the doorway, two slits of equal width could be
+produced; moving it to the left or to the right would make one slit larger than the other;
+single slit experiments were performed by not using the cardboard at all. Unfortunately, it was difficult
+to find a suitable location for the experiment that allowed for a screen like in the model. Instead, the
+sound intensity was measured at a distance of $248$ cm from the doorway. The first measurement was done
+$192$ cm \enquote{to the right} of the midpoint, and measurements were made all the way to the midpoint,
+and then all the way to the point $192$ cm \enquote{to the left} of the midpoint. On the floor, there were
+small white circular dots, with a spacing of $24$ cm. This made it easy to measure the intensity at intervals
+of $24$ cm. Using the relationship $v = \lambda{}f \implies f = \frac{v}{\lambda}$, where $v = \SI{340}{\m\per\square\s}$, 
+it was trivial to calculate which frequency of sound to use. Once the frequency had been determined,
+an online tone generator \parencite{tone-generator} was used to send monochromatic
+(only one wavelength) sound waves through the doorway. A mobile app \parencite{sound-meter} was used to record the sound
+intensity. However, the mobile app used gave values in dB. According to \parencite{decibel-to-intensity}, $\beta$ dB
+is equivalent to an intensity $I$ by the following equation:
+
+\begin{equation*}
+    \beta = 10\log_{10}\frac{I}{I_0},
+\end{equation*}
+                
+where $I_0$, the \enquote{standard threshold of hearing} is equal to \SI{10e-12}{\watt\per\square\m} \parencite{decibel-to-intensity}.
+Solving for $I$ yields
+
+\begin{equation*}
+    I = I_{0} \times 10^{\frac{\beta}{10}}
+\end{equation*}
+
+The measured dB values were converted to watts per square metre using the formula above,
+and then plotted against the distance from the midpoint. They were then normalised by dividing each
+intensity value by the maximum. For each measured value, a predicted value (according to the formula in 
+\eqref{eq:expression-for-intensity}) was generated, and a graph was plotted from these values as well.
+Once again, the predicted values were normalised. The recorded dB values and their value after conversion to
+SI units were also recorded, along with the dB and SI values predicted, in a text file.
+
+\subsection{Experimental results}
+
+Six cases in particular were tested. One single-slit experiment, one double-slit
+experiment with two slits of equal widths, and one experiment where one slit was twice
+as wide as the other. For two of these cases, the experiment was performed first with
+a wavelength approximately as large as the largest slit, and afterwards with a wavelength much
+larger than the largest slit width. The third case was only investigated with a large wavelength.
+
+\sectionparagraph{One slit}
+Below is a plot of the predicted results vs. the measured results for a small wavelength:
+
+\begin{figure}[H]
+\label{fig:single-slit-small-lambda}
+    \includegraphics{single-slit-small-lambda}
+
+\end{figure}
+From the figure above, it can be seen that the theory does not fit the data.
+Now, let us compare theory and results when the wavelength is large:
+
+\begin{figure}[H]
+\label{fig:single-slit-large-lambda}
+    \includegraphics{single-slit-large-lambda}
+\end{figure} 
+
+Clearly, in this case, the theory fit the measurements much better.
+
+\sectionparagraph{Two slits of equal width}
+Below is a plot of the predicted results vs. the measured results for a small wavelength:
+
+\begin{figure}[H]
+\label{fig:double-slit-small-lambda}
+    \includegraphics{double-slit-small-lambda}
+\end{figure}
+
+We can see that the theory most certainly does not fit the data.
+Now, let us compare the results for a large wavelength:
+
+\begin{figure}[H]
+\label{fig:double-slit-large-lambda}
+    \includegraphics{double-slit-large-lambda}
+\end{figure}
+
+Once again, the theory is a much better fit when the wavelength is
+large.
+
+\sectionparagraph{One slit twice as wide as the other}
+Below are the results measured and the predicted results from the theory
+for two slits where one is twice as wide as the other:
+
+\begin{figure}[H]
+\label{fig:1-2-ratio-large-lambda}
+    \includegraphics{1-2-ratio-large-lambda}
+\end{figure}
+
+Once again, the theory fits the data well.
+In \sectionref{section:zero-intensity}, we said that the theory we have now developed
+would only provide an accurate description of the intensity curve if the wavelength was large because
+then the effects of diffraction would be negligible.
+The results above seem to support this.
+
+\section{Accounting for diffraction}
+
+The intensity formula from \eqref{eq:expression-for-intensity} derived in \sectionref{section:intensity-formula} only accounts for interference between the waves. It assumes the waves travel as plane waves from the source to the slits, and then spread out like a point source at the slits. In fact, as long as the wavelength is as large or larger than the slit widths, then there will be a diffraction pattern as well. As discussed in \sectionref{section:intensity-formula}, if the wavelength is much larger than the slit widths, the effects of diffraction can be ignored. We will not attempt to extend our theory to account for diffraction as well.
+
+Huygen’s principle \parencite{huygens-principle} states that to explain diffraction, we may assume that when a wave undergoes diffraction, every point on the wavefront
+acts as a cirular point source; so there will be infinitely many circular point
+sources. To obtain an expression for the effect on intensity accounting for diffraction, we will assume that at the slits, the wave splits into n point sources, and let n go
+to infinity.
+
+Let $I_0$ be the amplitude of the wave as it enters the slits. Since we are using relative units, we will let $I_0 = 1$ for simplicity. We will assume that the amplitude $1$ will be spread evenly across the $n$ point sources; then, each source will have amplitude $\frac{1}{n}$. The distance from the $i$th slit from slit $A$ to the point will be some distance $d_a(i)$, and for slit $B$ we will have a similar expression $d_b(i)$. Because $d_a(i)$ and $d_b(i)$ both will depend on $i$, there will be a specific phase shift for each of the sources. It does not make sense to talk about a \Quote{phase shift} if we do not have a reference source. Arbitrarily, we choose the source in the middle of the slits to be the \Quote{in phase}, and call it the $0$th slit, and assign phase shifts $\phi_a(i)$ and $\phi_b(i)$, respectively, to the other point sources. The top slit will be the \Quote{$-\frac{n - 1}{2}$th} slit, i.e it will have $i = -\frac{n - 1}{2}$, and the bottom slit will be the $\frac{n - 1}{2}$th slit. Below we derive the resultant wave coming from slit $A$ at a given point, and then it will be easy to duplicate the derivation for slit $B$.
+
+The wave $\Lambda_i$ coming from the $i$th source from slit $A$ will be given by
+
+\begin{equation*}
+    \Lambda_i = \frac{1}{n \times d_a^2(i)}\sin(\omega t + \phi_a(i)).
+\end{equation*}
+
+The resultant wave $\Lambda(n)$, written as a function of $n$, coming from slit $A$ is given by the sum of these waves:
+
+\begin{equation}
+    \label{eq:sum-of-sine-waves}
+    \Lambda(n) = \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{n \times d_a^2(i)} \sin(\omega t + \phi_a(i)).
+\end{equation}
+
+
+Next, we will attempt to derive expressions for $d_a(i)$ and $\phi_a(i)$.
+
+\subsection{Deriving expressions for $d_a(i)$ and $\phi_a(i)$}
+
+Once again, recall the diagram from \figref{fig:double-slit-different-widths}:
+
+\begin{figure}[H]
+\begin{tikzpicture}
+
+    \draw (-1.5, 4) -- (-1.5, -4);
+    \draw (-2.5, 4) -- (-2.5, -4);
+    \draw[<->, very thick] (-1.7, 0) -- (-2.3, 0) node(lambda)[midway, above]{$\bm{\lambda}$};
+
+    \draw[dashed] (0,0) -- (10,0) node(D)[midway, above]{$\bm{D}$};
+
+    \draw (10,5) -- (10,-5);
+    
+    \draw (0,5) -- (0,2.5);
+    \draw[<->, very thick] (-0.25, 2.3) -- (-0.25, 1.7) node(A)[midway, left]{$\bm{A}$};
+    
+    \draw[color=red, very thick] (0,2) -- (10,4.8) node(da)[midway, above, rotate=15.64]{$\bm{d_a}$};
+    \draw[color=red, very thick] (0,2) -- (10,2);
+    
+    \draw (0, -5) -- (0, -2.5);
+    \draw[<->, very thick] (-0.25, -0.7) -- (-0.25, -2.3) node(B)[midway, left]{$\bm{B}$};
+    
+    \draw[color=blue, very thick] (0,-1.5) -- (10, -1.5);
+    \draw[color=blue, very thick] (0,-1.5) -- (10,4.8) node(db)[midway, above, rotate=32.2, xshift=-10pt]{$\bm{d_b}$};
+
+    \draw[very thick,decorate, decoration={brace, amplitude=10pt}] (10.1, 4.8) -- (10.1, 0) node(y)[midway, right, xshift=10pt]{$\bm{y}$};
+
+
+    \draw (0,-0.5) -- (0,1.5);
+    \draw[<->, very thick] (-0.25,-0.3) -- (-0.25, 1.3) node(S)[midway, left]{$\bm{S}$};
+\end{tikzpicture}
+\end{figure}
+
+Straight away, we have $d_a(0) = d_a$, and we know from \eqref{eq:d_a} that $d_a$ is given by
+
+\begin{equation*}
+    d_a = \sqrt{D^2 + \left(y - \frac{B + S}{2}\right)^2}.
+\end{equation*}
+
+Here, $D$ is the horizontal component of the distance, and $y - \frac{B + S}{2}$ is the vertical component. At the $i$th source, the vertical distance will be $y - \frac{B + S}{2} + \frac{iA}{n - 1}$. To verify this, plug in $i = \frac{n - 1}{2}$, and we get a vertical distance of $\frac{A + B + S}{2}$, which we from \eqref{eq:distance-from-slit-A-to-midpoint} in  \sectionref{section:distance-formulas} know is the distance from the middle of slit $A$ to the midpoint. Since the extra bit ($\frac{iA}{n - 1}$) is proportional to $i$ as well, this is the correct expression to add on.
+
+Thus, $d_a(i)$ is given by
+
+\begin{equation}
+    \label{eq:d_a(i)}
+    d_a(i) = \sqrt{D^2 + \left(y + \frac{iA}{n - 1} - \frac{B + S}{2}\right)^2}.
+\end{equation}
+
+Then, the path difference $\Delta{x}_i$, using source $0$ as a reference, is given by
+
+\begin{equation*}
+    \Delta{x}_i = \left\lvert \sqrt{D^2 + \left(y - \frac{B + S}{2}\right)^2} - \sqrt{D^2 + \left(y + \frac{iA}{n - 1} + \frac{B + S}{2}\right)^2} \right\rvert.
+\end{equation*}
+
+And the phase shift $\phi_a(i)$ must then be given by
+
+\begin{equation}
+    \label{eq:phi_a(i)}
+    \phi_a(i) = \frac{2\pi}{\lambda}\left\lvert \sqrt{D^2 + \left(y - \frac{B + S}{2}\right)^2} - \sqrt{D^2 + \left(y + \frac{iA}{n - 1} + \frac{B + S}{2}\right)^2} \right\rvert.
+\end{equation}
+
+\subsection{Further derivation}
+
+Using the fact that $\phi = \frac{2\pi}{\lambda}\Delta{x}$, and the formula from \eqref{eq:sum-of-sine-waves}, we have
+
+\begin{equation*}
+    \Lambda(n) = \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{n \times d_a^2(i)} \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(i))\right)
+\end{equation*}
+
+Notice we are not taking the absolute value of $d_a - d_a(i)$. This is intentional: A certain source above the middle source might be just as much out of phase as a certain slit below the middle, but they would be out of phase in opposite directions. Therefore, we account for this by considering the sign of the path difference.
+
+We will now take the limit as $n$ goes to infinity, yielding the actual resultant wave $\Lambda$ from slit $A$:
+
+\begin{equation*}
+    \Lambda = \lim_{n \to \infty} \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{n \times d_a^2(i)} \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(i))\right).
+\end{equation*}
+
+
+If $D$ is large relative to the slit widths, than for any $i$ and $n$, $d_a \approx d_a(i)$. Thus.
+
+\begin{equation}
+    \label{eq:sum-Lambda}
+    \Lambda = \lim_{n \to \infty} \frac{1}{d_a^2} \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{n} \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(i))\right).
+\end{equation}
+
+Let us define a function $f$:
+
+\begin{equation*}
+    f : x \to \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(x) \right).
+\end{equation*}
+
+Since $d_a$ is constant with respect to $i$, we can move it outside the summation, and since it is constant with respect to $n$, we can move it outside the limit. Notice also that we can rewrite the sine function we have in the sum as $f(i)$:
+
+\begin{equation*}
+    \Lambda = \frac{1}{d_a^2} \lim_{n \to \infty} \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} f(i)\frac{1}{n}
+\end{equation*}
+
+Notice that $f(i)\frac{1}{n}$ is the area of a rectangle whose base is $1/n$ and whose height is $f(i)$. By summing from $i = -\frac{n - 1}{2}$ to $\frac{n - 1}{2}$ we are adding together the area of $\frac{n - 1}{2} - \left(-\frac{n - 1}{2}\right) + 1 = n$ of these rectangles. The combined length of all these rectangles will be $1$, and our summation limits are symmetric about $0$. As $n$ tends to infinity, our sum tends towards the following integral:
+
+\begin{equation*}
+    \Lambda = \frac{1}{d_a^2}\int_{-1/2}^{1/2}f(x) \; dx.
+\end{equation*}
+
+Plugging in $i = \frac{n - 1}{2}$ to test the upper bound, we get $f(i) = f\left(\frac{1}{2}\frac{n - 1}{n}\right)$, however, when $n$ tends to infinity, $\frac{n - 1}{n}$ tends to $1$. Therefore, we can use limits of $-1/2$ and $1/2$ for the integral above.
+
+Now, using the formulas for $d_a$ and $d_a(i)$ from \eqref{eq:d_a} and \eqref{eq:d_a(i)} respectively, and expanding $f(x)$, we have
+
+\begin{equation*}
+    \Lambda = \frac{1}{d_a^2} \int_{-1/2}^{1/2} \sin\left[\omega t + \frac{2\pi}{\lambda}\left(\sqrt{D^2 + \left(y - \frac{B + S}{2}\right)^2} - \sqrt{D^2 + \left(y + x - \frac{B + S}{2}\right)^2}\right)\right] \; dx.
+\end{equation*}
+
+Using the exact same reasoning for slit $B$, and using the formula for $d_b$ given in \eqref{eq:d_b}, we have
+
+\begin{equation*}
+    d_b(i) = \sqrt{D^2 + \left(y + \frac{iB}{n - 1} + \frac{A + S}{2}\right)^2}.
+\end{equation*}
+
+Then, continuing the derivation in precisely the same way we did with slit A, we obtain an expression for the resultant wave $\beta$ from slit $B$:
+
+\begin{equation*}
+    \beta = \frac{1}{d_b^2} \int_{-1/2}^{1/2} \sin\left[\omega t + \frac{2\pi}{\lambda} \left(\sqrt{D^2 + \left(y + \frac{A + S}{2}\right)^2} - \sqrt{D^2 + \left(y + x + \frac{A + S}{2}\right)^2}\right) \right] \; dx.
+\end{equation*}
+
+Then, the superposition $S$ of the resultant waves from $A$ and $B$ is given by
+
+\begin{equation*}
+    S = \Lambda + \beta.
+\end{equation*}
+
+Notice both $\Lambda$ and $\beta$ are integrals with respect to $x$, but depend on $t$. Thus, when these integrals are evaluated, we will still have a function that depends on time. 
+
+\pagebreak
+
+\printbibliography[heading=bibintoc]
+
+\pagebreak
+
+\begin{appendices}
+
+\section{Code for computer simulation}
+\pagenumbering{arabic}
+\renewcommand*{\thepage}{A\arabic{page}}
+\renewcommand{\theequation}{A.\arabic{equation}}
+\setcounter{equation}{0}
+Below is the code used to generate the theoretical prediction. The X and Y arrays are filled with data from the experiment. For brevity, only the computational part of the program is included here. The entire program, including the command line interface used to enter the data, set parametres, etc., and plot the data, can be found here: \url{https://github.com/christofferaakre/Physics-Extended-Essay/blob/master/programs/compare-experiment-to-model.py}.
+\lstinputlisting[language=Python,  breaklines=true]{code.py}
+
+\section{Evaluation of intensity integral}
+
+\pagenumbering{arabic}
+\label{appendix:intensity-integral}
+\setcounter{equation}{0}
+\renewcommand*{\thepage}{B\arabic{page}}
+\renewcommand{\theequation}{B.\arabic{equation}}
+
+
+Below we evaluate the three integrals from \eqref{eq:intensity-integral} in \sectionref{section:intensity-formula}:
 
 \begin{align}
     \begin{aligned}
     \label{eq:the-three-integrals}
-        &\quad{}I_{avg} =\frac{\omega}{2\pi}\left(\frac{A^{2}}{d_{a}^{4}}\int_{0}^{2\pi/\omega}\sin{}^    {2}\omega{}t \; dt \right)  \\
+        &\quad{}I =\frac{\omega}{2\pi}\left(\frac{A^{2}}{d_{a}^{4}}\int_{0}^{2\pi/\omega}\sin{}^    {2}\omega{}t \; dt \right)  \\
         &+ \frac{\omega}{2\pi}\left(\frac{2AB}{d_{a}^{2}d_{b}^{2}}\int_{0}^{2\pi/\omega}\sin{\omega{}t}    \sin(\omega{}t + \phi) \; dt \right) \\
         &+ \frac{\omega}{2\pi}\left(\frac{B^{2}}{d_{b}^{4}}\int_{0}^{2\pi/\omega}\sin{}^{2}(\omega{}t +     \phi) \; dt \right) \\
     \end{aligned}
@@ -423,158 +822,21 @@ The third integral evaluates as follows:
     \label{eq:third-integral}
     \int_{0}^{2\pi/\omega}\sin{}^{2}(\omega{}t + \phi) \; dt = \frac{\pi}{\omega}.
 \end{equation}
-                
-Now, using the expression from \eqref{eq:the-three-integrals} and the calculated integrals from \eqref{eq:first-integral},
-\eqref{eq:second-integral}, and \eqref{eq:third-integral}, we can calculate the average intensity at any given point:
+
+Now, using the results from \eqref{eq:first-integral}, \eqref{eq:second-integral}, and \eqref{eq:third-integral}, we have
 
 \begin{flalign*}
     \begin{aligned}
-    &\quad{}I_{avg} = \frac{\omega}{2\pi}\left[\frac{A^2}{d_a^4}\times\frac{\pi}{\omega}
+    &\quad{}I = \frac{\omega}{2\pi}\left[\frac{A^2}{d_a^4}\times\frac{\pi}{\omega}
         + \frac{2AB}{d_{a}^{2}d_{b}^{2}}\times\frac{\pi}{\omega}\cos{\phi}
         + \frac{B^2}{d_b^4}\times\frac{\pi}{\omega}\right] \\
     &= \frac{1}{2}\left[\frac{A^2}{d_a^4} + 
         \frac{2AB}{d_{a}^{2}d_{b}^{2}}\cos{\phi} + \frac{B^2}{d_b^4}\right].
     \end{aligned}
 \end{flalign*}
-                
-However, since we are using arbitrary units, the factor of $\frac{1}{2}$ is of
-no importance, so we can obtain the formula
 
-\begin{equation*}
-    I_{avg} = \frac{A^2}{d_a^4} + 
-    \frac{2AB}{d_{a}^{2}d_{b}^{2}}\cos{\phi} + \frac{B^2}{d_b^4}.
-\end{equation*}
 
-However, this assumes that the waves are formed at the slits. In reality,
-the waves are formed first at the source, and then reformed at the slits due
-to diffraction. Let the perpendicular distance from the source to the slits be $k$. 
-Then, assuming the waves had an initial amplitude $A_{initial}$
-at the source, once they reach the slits, they will have an amplitude $\frac{A_{initial}}{k^2}$,
-due to the \textit{Law of Inverse Squares} \parencite{inverse-square}.
-Incorporating this into the expression for intensity above gives
-
-\begin{equation}
-\label{eq:expression-for-average-intensity}
-    I_{avg} = \frac{1}{k^2}\left(\frac{A^2}{d_a^4} + 
-    \frac{2AB}{d_{a}^{2}d_{b}^{2}}\cos{\phi} + \frac{B^2}{d_b^4}\right).
-\end{equation}
-
-\subsection{Comparing the theory to experimental results}
-
-To test the theory, sound waves were used. It was expected that the theory
-would fit the experimental well when the wavelength used was much larger than
-the slit widths (corresponding to a low frequency), and that they would not agree
-very well when the wavelength used was not much larger than the slit widths.
-
-                \subsubsection{The experiment}
-                
-A single speaker was placed in a classroom, a distance $k$ away from a doorway of width $87.5$ cm.
-In practice, $k$ was never varied; it was kept constant at $244$ cm. (A $1$ metre ruler was used for all distance measurements) A tall (taller than the doorway) piece of cardboard was used to define the slits. It was approximately $9$ cm wide. By placing the
-cardboard such that its centre was in the centre of the doorway, two slits of equal width could be
-produced; moving it to the left or to the right would make one slit larger than the other;
-single slit experiments were performed by not using the cardboard at all. Unfortunately, it was difficult
-to find a suitable location for the experiment that allowed for a screen like in the model. Instead, the
-sound intensity was measured at a distance of $248$ cm from the doorway. The first measurement was done
-$192$ cm \enquote{to the right} of the midpoint, and measurements were made all the way to the midpoint,
-and then all the way to the point $192$ cm \enquote{to the left} of the midpoint. On the floor, there were
-small white circular dots, with a spacing of $24$ cm. This made it easy to measure the intensity at intervals
-of $24$ cm. Using the relationship $v = \lambda{}f \implies f = \frac{v}{\lambda}$, where $v = \SI{340}{\m\per\square\s}$, 
-it was trivial to calculate which frequency of sound to use. Once the frequency had been determined,
-an online tone generator \parencite{tone-generator} was used to send monochromatic
-(only one wavelength) sound waves through the doorway. A mobile app \parencite{sound-meter} was used to record the sound
-intensity. However, the mobile app used gave values in dB. According to \parencite{decibel-to-intensity}, $\beta$ dB
-is equivalent to an intensity $I$ by the following equation:
-
-\begin{equation*}
-    \beta = 10\log_{10}\frac{I}{I_0},
-\end{equation*}
-                
-where $I_0$, the \enquote{standard threshold of hearing} is equal to \SI{10e-12}{\watt\per\square\m} \parencite{decibel-to-intensity}.
-Solving for $I$ yields
-
-\begin{equation*}
-    I = I_{0} \times 10^{\frac{\beta}{10}}
-\end{equation*}
-
-The measured dB values were converted to watts per square metre using the formula above,
-and then plotted against the distance from the midpoint. They were then normalised by dividing each
-intensity value by the maximum. For each measured value, a predicted value (according to the formula in 
-\eqref{eq:expression-for-average-intensity}) was generated, and a graph was plotted from these values as well.
-Once again, the predicted values were normalised. The recorded dB values and their value after conversion to
-SI units were also recorded, along with the dB and SI values predicted, in a text file.
-
-\subsubsection{Experimental results}
-
-Six cases in particular were tested. One single-slit experiment, one double-slit
-experiment with two slits of equal widths, and one experiment where one slit was twice
-as wide as the other. For two of these cases, the experiment was performed first with
-a wavelength approximately as large as the largest slit, and afterwards with a wavelength much
-larger than the largest slit width. The third case was only investigated with a large wavelength.
-
-\sectionparagraph{One slit}
-Below is a plot of the predicted results vs. the measured results for a small wavelength:
-
-\begin{figure}[H]
-\label{fig:single-slit-small-lambda}
-    \includegraphics{single-slit-small-lambda}
-
-\end{figure}
-From the figure above, it can be seen that the theory does not fit the data.
-Now, let us compare theory and results when the wavelength is large:
-
-\begin{figure}[H]
-\label{fig:single-slit-large-lambda}
-    \includegraphics{single-slit-large-lambda}
-\end{figure} 
-
-Clearly, in this case, the theory fit the measurements much better.
-
-\sectionparagraph{Two slits of equal width}
-Below is a plot of the predicted results vs. the measured results for a small wavelength:
-
-\begin{figure}[H]
-\label{fig:double-slit-small-lambda}
-    \includegraphics{double-slit-small-lambda}
-\end{figure}
-
-We can see that the theory most certainly does not fit the data.
-Now, let us compare the results for a large wavelength:
-
-\begin{figure}[H]
-\label{fig:double-slit-large-lambda}
-    \includegraphics{double-slit-large-lambda}
-\end{figure}
-
-Once again, the theory is a much better fit when the wavelength is
-large.
-
-\sectionparagraph{One slit twice as wide as the other}
-Below are the results measured and the predicted results from the theory
-for two slits where one is twice as wide as the other:
-
-\begin{figure}[H]
-\label{fig:1-2-ratio-large-lambda}
-    \includegraphics{1-2-ratio-large-lambda}
-\end{figure}
-
-Once again, the theory fits the data well.
-In \sectionref{section:zero-intensity}, we said that the theory we have now developed
-would only provide an accurate description of the intensity curve if the wavelength was large because
-then the effects of diffraction would be negligible.
-The results above seem to support this.
-
-\pagebreak
-
-\begin{appendices}
-
-\section{Code for computer simulation}
-Below is the code used to generate the theoretical prediction. The X and Y arrays are filled with data from the experiment. For brevity, the entire program is not included here. The entire code, including the command line interface used to enter the data, set parametres, etc. and plot the data, see 
-\lstinputlisting[language=Python,  breaklines=true]{code.py}
 
 \end{appendices}
-
-\pagebreak
-
-\printbibliography
 
 \end{document}
