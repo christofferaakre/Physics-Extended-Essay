@@ -1,5 +1,6 @@
 import math
-import matplotlib.pyplot as plt
+import plotly.offline as py
+import plotly.graph_objs as go
 
 # Experimental parametres
     # Parametres matching experimental trials:        
@@ -16,11 +17,12 @@ import matplotlib.pyplot as plt
 
 # Note: All distances measured in cm. Speeds in cm/s
 
-A = 87.5
-B = 0
-S = 0
+A = 26
+B = 52
+S = 9
 D = 248
-wavelength = 227
+k = 244
+wavelength = 548
 
 # Speed of sound is approx. 340 m/s --> 340 * 100 cm/s
 v = 340 * 100
@@ -45,7 +47,7 @@ def d_b(y):
 # as calculated in paper. 
 # 0th source is in the middle, -(n - 1) /2 at the top, ,and (n - 1) / 2 at the bottom.
 def d_ai(i, y):
-    return math.sqrt(D ** 2 + (y + i * A / ( n - 1) - (B + S) / 2) * 2)
+    return math.sqrt(D ** 2 + (y + i * A / ( n - 1) - (B + S) / 2) ** 2)
 
 # Distance from ith source in slit B to point with displacement y,
 # as calculated in paper.
@@ -61,13 +63,13 @@ def phase_shift(path_difference):
 # The amplitude should be A / (d_a^2) as calculated in the paper, but we multiply by this term
 # later in the code so we don't have to do it many times
 def partial_A(i, y, t):
-    return math.sin(omega * t + phase_shift(d_a(y) - d_ai(i, y)))
+    return math.sin(omega * t + phase_shift(d_a(y) - d_ai(i, y))) / (d_ai(i, y) ** 2)
 
 # Gives the wave contributed by the ith source from slit B at a certain point at a specific time.
 # The amplitude should be B / (d_b^2) as calculated in the paper, but we multiply by this term
 # later in the code so we don't have to do it many times
 def partial_B(i, y, t):
-    return math.sin(omega * t + phase_shift(d_b(y) - d_bi(i, y)))
+    return math.sin(omega * t + phase_shift(d_b(y) - d_bi(i, y))) / (d_bi(i, y) ** 2)
 
 # Calculates the sum of the waves contributed by all the sources from slit A 
 # at the point with displacement y at a certain time t
@@ -75,7 +77,7 @@ def sum_A(y, t):
     displacement = 0
     for i in range(int(-(n - 1) / 2), int((n - 1) / 2)):
         displacement += partial_A(i, y, t)
-    displacement /= (n * (d_a(y) ** 2))
+    displacement = displacement * A / n
     return displacement
 
 # Calculates the sum of the waves contributed by all the sources from slit B
@@ -88,7 +90,7 @@ def sum_B(y, t):
         # For each source, add the displacement contributed to the total
         # displacement
         displacement += partial_B(i, y, t)
-    displacement /= (n * (d_b(y) ** 2))
+    displacement = displacement * B / n
     # Return the displacement of the resultant wave at the point with displacement y at
     # time t
     return displacement
@@ -99,6 +101,22 @@ I = []
 # Numerical integration of sum_A, which is the displacement of the resultant wave coming from slit A at the point
 # with displacement y at a time t, from 0 to 2pi / omega to get the actual displacement
 # contributed by slit A at the point with displacement y
+
+def square_displacement(y, t):
+    return (sum_A(y, t) + sum_B(y, t)) ** 2
+
+def average_square_displacement(y):
+    t = 0
+    result = 0
+    slices = 10
+    upper_bound = 2 * math.pi / omega
+    dt = upper_bound / slices
+    while t <= upper_bound:
+        result += square_displacement(y, t)
+        t += dt
+    result /= slices
+    return result
+
 def displacement_A(y):
     t = 0
     displacement = 0
@@ -109,7 +127,7 @@ def displacement_A(y):
         displacement += sum_A(y, t)
         t += dt
     displacement /= slices
-    return  A * displacement
+    return  displacement
 
 # Numerical integration of sum_B, which is the displacement of the resultant wave coming from slit B at the point
 # with displacement y at a time t, from 0 to 2pi / omega to get the actual displacement
@@ -124,7 +142,7 @@ def displacement_B(y):
         displacement += sum_B(y, t)
         t += dt
     displacement /= slices
-    return B * displacement
+    return displacement
 
 # Return the displacement of the superposition of the resultant waves coming from slits
 # A and B
@@ -143,7 +161,7 @@ for i in range(-192, 192):
     Y.append(i)
     # For each displacement value, use the intensity function defined earlier to predict
     # the intensity at that point, then add it to the list I
-    I.append(intensity(i))
+    I.append(average_square_displacement(i))
 
 I_normalised = []
 
@@ -152,11 +170,33 @@ for value in I:
     # but the maximum will be 1
     I_normalised.append(value / max(I))
 
-# Plot the graph
-plot = plt.scatter(
-    x=Y,
-    y=I_normalised
+# Define layout for plot
+layout = go.Layout(
+    title=f"D={D}, k={k}, λ={wavelength}, A={A}, B={B}, S={S}",
+    xaxis=dict(
+        title="Distance from center (cm)",
+    ),
+    yaxis=dict(
+        title="Intensity"
+    )
 )
 
-# Show the graph
-plt.show()
+diffraction = go.Scatter(
+    x=Y,
+    y=I_normalised,
+    name="Theory with diffraction"
+)
+
+data = [diffraction]
+
+fig = go.Figure(data=data, layout=layout)
+
+print("Name of file to save diagram to:")
+filename = input()
+
+if '.html' not in filename:
+    filename = f'{filename}.html'
+
+py.plot(fig, filename=f'diagrams/diffraction/{filename}')
+
+print(f'Plot saved to diagrams/diffraction/{filename}')
