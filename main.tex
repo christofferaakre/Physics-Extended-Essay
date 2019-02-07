@@ -3,11 +3,10 @@
 % Commands
 \newcommand{\daformula}[0]{\sqrt{D^2 + \left(y - \frac{B + S}{2}\right)^2}}
 \newcommand{\dbformula}[0]{\sqrt{D^2 + \left(y + \frac{A + S}{2}\right)^2}}
+\date{}
+% Project metadata
 
-% Project metatdata
-
-\title{What are the consequences of having differing slit widths during the double slit experiment?}
-\author{Christoffer Corfield Aakre}
+\title{An exploration of the double slit experiment with different width slits and sound waves}
 \begin{document} 
 \maketitle
 \begin{abstract}
@@ -16,18 +15,21 @@
     slits of equal width, and uses the small wavelength of light
     to its advantage, e.g. by performing approximations, to yield
     a simple yet reliable theory of interference. This paper 
-    attempts to explopre the using sound waves,
+    attempts to explore the experiment using sound waves,
     that do not have such small wavelengths, and also attempts to 
     generalise the theory further to account for differing slit widths
     rather than restricting itself to two slits of the same width.
 \end{abstract}
+
+Word count: 3705 (excluding appendices)
+
 \pagebreak
 \tableofcontents
 \pagebreak
 \section{Wave behaviour}
 In this section we introduce two basic characteristics of wave behaviour: \textbf{interference} and \textbf{diffraction}. 
 \subsection{Wave interference}
-\textbf{Waves} are a simple and usefull mathematical concept used by phycisists to desribe natural phenomena. Often, we use waves when something is oscillating or periodic, or when it exhibits such behaviours as \textbf{interference} or \textbf{diffraction}. We usually represent e.g. light, sound, etc. as sine waves. Below a sine wave is shown:
+\textbf{Waves} are a simple and useful mathematical concept used by physicists to desribe natural phenomena. Often, we use waves when something is oscillating or periodic, or when it exhibits such behaviours as \textbf{interference} or \textbf{diffraction}. We usually represent e.g. light, sound, etc. as sine waves. Below a sine wave is shown:
 
 \begin{figure}[H]
 \caption{A sine wave}
@@ -73,6 +75,13 @@ As we see from the figure above, the two waves have added together to create a b
 \end{equation*}
 where $\Delta x$ is the path difference between the two waves.
 
+Note that the phase shift $\phi$ between two waves is given by
+
+\begin{equation}
+    \label{eq:path-difference-to-phase-shift}
+    \phi = \frac{2\pi}{\lambda}\Delta{x},
+\end{equation}
+where $\Delta{x}$ is their path difference.
 Now, if we shift one wave over by an angle of $\pi$, then the waves will add together to form a smaller wave:
 
 \begin{figure}[H]
@@ -97,10 +106,19 @@ Now, if we shift one wave over by an angle of $\pi$, then the waves will add tog
 In this case, we see that we  end up with a wave with a smaller amplitude once we add the two waves together. If the two waves had the same amplitude, they would completely cancel each other out! This is known as \textbf{destructive interference}.
 
 \subsection{Wave diffraction}
+We know from everyday experiences that we can hear around corners, but not see around corners. Why is this? We can explain this using the concept of \textbf{wave diffraction}. Diffraction occurs whenever a wave encounters an obstacle, like a corner. The waves \Quote{bend} around the corners of the obstacle. Below is an image showing water waves diffracting in a ripple tank:
+
+\begin{figure}[H]
+    \caption{Water waves diffracting in a ripple tank}
+    \includegraphics{diagrams/water-wave-diffraction.jpg}
+    \source{http://labman.phys.utk.edu/phys222core/modules/m9/images/misc3a.jpg}
+\end{figure}
+
+It is known that diffraction only occurs when the width of the obstacle is comparable to the wavelength of the wave.
 
 
-
-\section{Zero intensity points}
+\section{The standard Double Slit Theory}
+\subsection{Zero intensity points}
 \label{section:zero-intensity}
 
 One of the most important parts of the standard Double Slit theory is
@@ -160,14 +178,34 @@ which implies
     \label{eq:double-slit-formula}
     D\sin{\theta} = (2n-1)\lambda
 \end{equation}
-This is the famous \textit{Double Slit Formula}. However, there are two issues,
-as the model in \eqref{eq:model-superposition-simple} is a simplification.
-Firstly, it does not account for the fact that the path difference of the two slits
+This is the famous \textit{Double Slit Formula}. However, there is an issue,
+as the model in \eqref{eq:model-superposition-simple} is a simplification: it does not account for the fact that the path difference of the two slits
 to the point will have an impact on the amplitudes of the two waves; the waves emitted
 from the slit closer to the point will have a larger amplitude. Of course, when the
 experiment is performed with light, this path difference is negligible compared to
 the distance to the screen, but when performed with e.g sound waves, it is no longer
-negligible, and must be taken into consideration. We will use the \textit{Law of inverse squares} \parencite{inverse-square},
+negligible, and must be taken into consideration. 
+
+\subsection{Constructive interference}
+Another important part of the Double Slit Theory is the position of the
+points at which total constructive interference occurs. Modifying the 
+\textit{Double Slit Formula} \eqref{eq:double-slit-formula}, we obtain
+the condition 
+\begin{equation}
+    D\sin{\theta} = 2n\lambda.
+\end{equation}
+However, once again, this formula does not generalise to waves with larger wavelengths
+and/or slits with differing widths. Using the formula for the phase shift from \eqref{eq:path-difference-to-phase-shift}
+and the condition $\phi = 2n\pi$, we obtain the condition
+\begin{equation}
+    \label{eq:condition-constructive-interference}
+    \lvert{}d_{b} - d_{a}\rvert = n\lambda.
+\end{equation}
+
+\section{Finding an expression for the distances from the slits to a given point}
+\label{section:distance-formulas}
+
+We will use the \textit{Law of inverse squares} \parencite{inverse-square},
 and assume that the amplitude is inversely proportional to the square of the distance
 from the source to the screen. Let $d_a$ and $d_b$ be the distances from the slits
 to the screen. Let the two slits have widths $A$ and $B.$
@@ -216,100 +254,13 @@ becomes
 \begin{equation}
     S = \frac{1}{d_{a}^{2}}\sin{\omega{}t} + \frac{1}{d_{b}^{2}}\sin(\omega{}t + \phi),
 \end{equation}
-Secondly, we must take into account that the two slits may not be same width. We will
+Now, we must take into account that the two slits may not be same width. We will
 assume that the amplitude of the waves emitted from the slits is proportional to the width of the slits.
 For justification, note that a slit twice as large will collect twice as much sound, light, etc.
 Let the two slits have widths $A$ and $B$ respectively, and the model becomes
 \begin{equation}
     S = \frac{A}{d_{a}^{2}}\sin{\omega{}t} + \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi).
 \end{equation}
-For there to be a solution to $S = 0$ for all $t\in\mathbb{R}$, the two sine waves
-must have equal amplitudes. So, we have
-\begin{equation}
-    \label{eq:amplitude-condition-no-intensity}
-    \frac{A}{d_{a}^{2}} = \frac{B}{d_{b}^{2}} \implies \frac{A}{B} = \frac{d_{a}^{2}}{d_{b}^{2}}       
-\end{equation}
-The condition in \eqref{eq:amplitude-condition-no-intensity}
-ensures the waves have the same amplitude. For the total intensity to be zero,
-they must also have a phase shift of $\pi$. Since the phase shift $\phi$ is given by
-$\phi = \frac{2\pi}{\lambda}\Delta{x}$, and the path difference is given by $\Delta{x} = \lvert{}d_b - d_{a}\rvert$,
-the phase shift can be expressed as 
-\begin{equation}
-    \label{eq:phase-shift-formula}
-    \phi = \frac{2\pi}{\lambda}\left\lvert{}d_{b} - d_{a}\right\rvert
-\end{equation}
-Then, letting $\phi = (2n-1)\pi$, we get
-\begin{equation*}
-    \frac{2\pi}{\lambda}\left\lvert{}d_{b} - d_{a}\right\rvert = (2n-1)\pi,
-\end{equation*}
-which implies 
-\begin{equation}
-    \label{eq:phase-shift-condition-destructive-interference}
-    \lvert{}d_{b} - d_{a}\rvert = \frac{2n-1}{2}\lambda
-\end{equation}
-So, to summarise, the conditions for a total intensity of zero are:
-\begin{equation}
-    \begin{cases}
-        \frac{A}{B} = \frac{d_{a}^{2}}{d_{b}^{2}} \\
-        \lvert{}d_{b} - d_{a}\rvert = \frac{2n-1}{2}\lambda \\
-    \end{cases}
-\end{equation}
-\section{Constructive interference}
-Another important part of the Double Slit Theory is the position of the
-points at which total constructive interference occurs. Modifying the 
-\textit{Double Slit Formula} \eqref{eq:double-slit-formula}, we obtain
-the condition 
-\begin{equation}
-    D\sin{\theta} = 2n\lambda.
-\end{equation}
-However, once again, this formula does not generalise to waves with larger wavelengths
-and/or slits with differing widths. Using the formula for the phase shift from \eqref{eq:phase-shift-formula}
-and the condition $\phi = 2n\pi$, we obtain the condition
-\begin{equation}
-    \label{eq:condition-constructive-interference}
-    \lvert{}d_{b} - d_{a}\rvert = n\lambda.
-\end{equation}
-Notice that for zero intensity, there were two conditions:
-\begin{boldenumerate}
-    \item The amplitudes must equal \eqref{eq:amplitude-condition-no-intensity}.
-    \item The phase shift must be a half integer multiple of $\pi \eqref{eq:phase-shift-condition-destructive-interference}$.
-\end{boldenumerate}
-However, for total constructive interference, the first condition is not necessary,
-so there is only the condition in \eqref{eq:condition-constructive-interference}.
-\section{Finding an expression for the distances from the slits to a given point}
-\label{section:distance-formulas}
-Recall the diagram from \figref{fig:double-slit-different-widths}:
-
-\begin{figure}[H]
-\begin{tikzpicture}
-
-    \draw (-1.5, 4) -- (-1.5, -4);
-    \draw (-2.5, 4) -- (-2.5, -4);
-    \draw[<->, very thick] (-1.7, 0) -- (-2.3, 0) node(lambda)[midway, above]{$\bm{\lambda}$};
-
-    \draw[dashed] (0,0) -- (10,0) node(D)[midway, above]{$\bm{D}$};
-
-    \draw (10,5) -- (10,-5);
-    
-    \draw (0,5) -- (0,2.5);
-    \draw[<->, very thick] (-0.25, 2.3) -- (-0.25, 1.7) node(A)[midway, left]{$\bm{A}$};
-    
-    \draw[color=red, very thick] (0,2) -- (10,4.8) node(da)[midway, above, rotate=15.64]{$\bm{d_a}$};
-    \draw[color=red, very thick] (0,2) -- (10,2);
-    
-    \draw (0, -5) -- (0, -2.5);
-    \draw[<->, very thick] (-0.25, -0.7) -- (-0.25, -2.3) node(B)[midway, left]{$\bm{B}$};
-    
-    \draw[color=blue, very thick] (0,-1.5) -- (10, -1.5);
-    \draw[color=blue, very thick] (0,-1.5) -- (10,4.8) node(db)[midway, above, rotate=32.2, xshift=-10pt]{$\bm{d_b}$};
-
-    \draw[very thick,decorate, decoration={brace, amplitude=10pt}] (10.1, 4.8) -- (10.1, 0) node(y)[midway, right, xshift=10pt]{$\bm{y}$};
-
-
-    \draw (0,-0.5) -- (0,1.5);
-    \draw[<->, very thick] (-0.25,-0.3) -- (-0.25, 1.3) node(S)[midway, left]{$\bm{S}$};
-\end{tikzpicture}
-\end{figure}
 
 The distance from the top of slit $A$ to the bottom of slit $B$ is given by
 
@@ -351,10 +302,9 @@ The distance from slit $B$ to the point can be found likewise, but adding instea
 If the path difference $\Delta{x}$ of two waves and their wavelength $\lambda$ is known, it easy to find their
 phase shift:
             
-\begin{equation}
-    \label{eq:path-difference-to-phase-shift}
+\begin{equation*}
     \phi = \frac{2\pi}{\lambda}\Delta{x}.
-\end{equation}
+\end{equation*}
             
 In the last section, the distances $d_a$ and $d_b$ from the slits $A$ and $B$, respectively,
 to a given point were found. Then, the path difference is simply given by
@@ -408,7 +358,7 @@ So, adding them together, the superposition $S$ is given by
     
 Consider a wave that is a sum of waves of the same wavelength and phase. If we double the amplitude of the wave, then the particles' displacement will change \textbf{twice} as quickly, and thus, the wave's energy will change \textbf{four} times as quickly. Then, trivially, it will also change four times as quickly on average, and thus the intensity has quadrupled. So, we say that a wave's intensity is proportional to the square of its amplitude. The core of the argument is that the wave's \textbf{rate of change of energy} is proportional to the square of its \textbf{displacement}, and thus the intensity is proportional to the \textbf{average} if the square of the displacement of the wave. If all the parts of the wave are in phase, we can extend that and say that intensity is proportional to the amplitude of the wave since the square amplitude will indeed be proportional to the average square displacement.
 
-Now, consider a wave that is the sum of waves of the samelength but \textbf{different phase}. Then, we use the same argument: The rate of change of energy will be proportional to the particles' displacement. Then,
+Now, consider a wave that is the sum of waves of the same wavelength but \textbf{different phase}. Then, we use the same argument: The rate of change of energy will be proportional to the particles' displacement. Then,
             
 
 Squaring the above expression in \eqref{eq:S-of-t} gives the rate of change of energy $I(t)$ at a given point at a specific time:
@@ -434,7 +384,7 @@ So, the intensity at a given point will be given by
 
 This integral is evaluated in \textbf{\hyperref[appendix:intensity-integral]{Appendix B}}.
 
-Now, using the derivation from \textbf{\hyperref[appendix:intensity-integral]{Appendix B}}, we obtain the following expresssion for the intensity:
+Now, using the derivation from \textbf{\hyperref[appendix:intensity-integral]{Appendix B}}, we obtain the following expression for the intensity:
 \begin{flalign*}
     \begin{aligned}
     &\quad{}I = \frac{\omega}{2\pi}\left[\frac{A^2}{d_a^4}\times\frac{\pi}{\omega}
@@ -500,30 +450,60 @@ is equivalent to an intensity $I$ by the following equation:
 where $I_0$, the \enquote{standard threshold of hearing} is equal to \SI{10e-12}{\watt\per\square\m} \parencite{decibel-to-intensity}.
 Solving for $I$ yields
 
-\begin{equation*}
+\begin{equation}
+\label{eq:intensity-to-decibel}
     I = I_{0} \times 10^{\frac{\beta}{10}}
-\end{equation*}
+\end{equation}
 
 The measured dB values were converted to watts per square metre using the formula above,
 and then plotted against the distance from the midpoint. They were then normalised by dividing each
 intensity value by the maximum. For each measured value, a predicted value (according to the formula in 
 \eqref{eq:expression-for-intensity}) was generated, and a graph was plotted from these values as well.
 Once again, the predicted values were normalised. The recorded dB values and their value after conversion to
-SI units were also recorded, along with the dB and SI values predicted, in a text file.
+SI units were also recorded, along with the dB and SI values predicted, in a text file. The code used
+to evaluate the intensity formula in \eqref{eq:expression-for-intensity} from \sectionref{section:intensity-formula} is given in \textbf{\hyperref[appendix:diffraction-free-code]{Appendix A.1}}
 
 \subsection{Experimental results}
-
+\label{section:experimental-results}
 Six cases in particular were tested. One single-slit experiment, one double-slit
 experiment with two slits of equal widths, and one experiment where one slit was twice
 as wide as the other. For two of these cases, the experiment was performed first with
 a wavelength approximately as large as the largest slit, and afterwards with a wavelength much
 larger than the largest slit width. The third case was only investigated with a large wavelength.
 
+\subsubsection{A note on precision and confirmation bias}
+\label{section:precision-and-bias}
+Unfortunately, it has to be admitted that the results below most likely suffer from a severe case of confirmation bias and bad precision. There was a lot of background noise (construction work) present during the measurements, and there was never a time when the intensity reading \Quote{settled} properly; the reading was fluctuating wildly, with a range of a few decibel. A fluctuation of a few decibel is in fact crushing when it is considered that the decibel difference between each consecutive measurement is also only a few decibel. When the experiment was conducted, the rough shape of double-slit and single-slit curves was known. So, when a choice had to be made whether the reading was e.g $61$, $62$, $63$, or $64$ dB (not actual values), I would be more likely to choose the reading that, relative to the previous readings so far in the trial, would best conform to the known shape. I also knew in advance what curve my model predicted. I knew that it didn't include any maxima or minima except the central maxima. Thinking my model \textbf{should} be correct for large wavelengths, I might have ignored maxima or minima that were actually there. Or, conversely, during the trials with small wavelengths, I knew that there \Quote{were supposed to be other maxima/minima}. In hindsight, it would likely have been a better idea to collect experimental data first, and only then start working on the model. The reader will probably be surprised at how \Quote{nice} the curves with small wavelengths look; This could be explained by the narrow range of values and confirmation bias.
+
+Let us say two points have decibel readings $\beta_1$ and $\beta_2$ which correspond to actual intensities $I_1$ and $I_2$ respectively. Let $I_2 / I_1 = a$. Then, using the formula for decibels from \eqref{eq:intensity-to-decibel}, we have
+
+\begin{equation*}
+    \frac{I_1}{I_2} = a \implies \frac{\cancel{I_0} \times 10^{\beta_1 / 10}}{\cancel{I_0} \times 10^{\beta_2 / 10}} = a.
+\end{equation*}
+
+Solving for $\lvert \beta_1 - \beta_2\rvert$, the decibel difference, we get
+
+\begin{equation*}
+    \lvert \beta_1 - \beta_2 \rvert = \lvert 10\log a \rvert.
+\end{equation*}
+
+In the first plot below, the central maximum has a relative intensity $1$, and the first maximum to the right has an intensity $0.4$. So, the ratio of these, using $I_1 = 1, I_2 = 0.4$, is
+$5/2$. Then, we get
+
+\begin{equation*}
+    \lvert \beta_1 - \beta_2 \rvert \approx 4 \; \textnormal{dB}.
+\end{equation*}
+
+So, unless the reading was off by four decibel, the experimental results cannot be purely due to reading error.
+
+
+\subsubsection{Graphs}
 \sectionparagraph{One slit}
 Below is a plot of the predicted results vs. the measured results for a small wavelength:
 
 \begin{figure}[H]
 \label{fig:single-slit-small-lambda}
+\caption{Single slit - Small wavelength}    
     \includegraphics{single-slit-small-lambda}
 
 \end{figure}
@@ -532,6 +512,7 @@ Now, let us compare theory and results when the wavelength is large:
 
 \begin{figure}[H]
 \label{fig:single-slit-large-lambda}
+\caption{Single slit - Large wavelength}
     \includegraphics{single-slit-large-lambda}
 \end{figure} 
 
@@ -542,6 +523,7 @@ Below is a plot of the predicted results vs. the measured results for a small wa
 
 \begin{figure}[H]
 \label{fig:double-slit-small-lambda}
+\caption{Double slit - Small wavelength}
     \includegraphics{double-slit-small-lambda}
 \end{figure}
 
@@ -550,6 +532,7 @@ Now, let us compare the results for a large wavelength:
 
 \begin{figure}[H]
 \label{fig:double-slit-large-lambda}
+\caption{Double slit - Large wavelength}
     \includegraphics{double-slit-large-lambda}
 \end{figure}
 
@@ -562,6 +545,7 @@ for two slits where one is twice as wide as the other:
 
 \begin{figure}[H]
 \label{fig:1-2-ratio-large-lambda}
+\caption{One slit twice as wide as the other - Large wavelength}
     \includegraphics{1-2-ratio-large-lambda}
 \end{figure}
 
@@ -577,7 +561,7 @@ The results above seem to support this.
 The intensity formula from \eqref{eq:expression-for-intensity} derived in \sectionref{section:intensity-formula} only accounts for interference between the waves. It assumes the waves travel as plane waves from the source to the slits, and then spread out like a point source at the slits. In fact, as long as the wavelength is as large or larger than the slit widths, then there will be a diffraction pattern as well. As discussed in \sectionref{section:intensity-formula}, if the wavelength is much larger than the slit widths, the effects of diffraction can be ignored. We will not attempt to extend our theory to account for diffraction as well.
 
 Huygen’s principle \parencite{huygens-principle} states that to explain diffraction, we may assume that when a wave undergoes diffraction, every point on the wavefront
-acts as a cirular point source; so there will be infinitely many circular point
+acts as a circular point source; so there will be infinitely many circular point
 sources. To obtain an expression for the effect on intensity accounting for diffraction, we will assume that at the slits, the wave splits into n point sources, and let n go
 to infinity.
 
@@ -601,7 +585,7 @@ Next, we will attempt to derive expressions for $d_a(i)$ and $\phi_a(i)$.
 
 \subsection{Deriving expressions for $d_a(i)$ and $\phi_a(i)$}
 
-Once again, recall the diagram from \figref{fig:double-slit-different-widths}:
+Recall the diagram from \figref{fig:double-slit-different-widths}:
 
 \begin{figure}[H]
 \begin{tikzpicture}
@@ -702,6 +686,21 @@ We notice that displacement $S$ of the resultant wave will be a function of $t$.
     I = \frac{\omega}{2\pi}\int_{0}^{2\pi / \omega} (\Lambda + \beta) \; dt.
 \end{equation*}
 
+The Python code used to evaluate this integral is given in \textbf{\hyperref[appendix:diffraction-code]{Appendix A.2}}
+
+\subsection{Evaluation of the diffraction-including model}
+For all five of the trials conducted (see \sectionref{section:experimental-results}), the diffraction-including model gave very similar predictions to those of the diffraction-free-model from \sectionref{section:intensity-formula}. The plots are included in \textbf{\hyperref[appendix:diffraction-plots]{Appendix C}}.
+
+This was unexpected. As discussed earlier in the paper, we said that the diffraction-free model did not adhere to the experimental results for small wavelengths because of diffraction. But now we have a model that accounts for diffraction, and it predicts the same intensity distribution! Thus, we have two options:
+
+\begin{boldenumerate}
+    \item The diffraction-including model is wrong. Either Huygen's principle does not apply here, we applied it incorrectly, there is an error in the mathematics somewhere, or the code is wrong.
+    
+    \item The measurements are incorrect.
+\end{boldenumerate}
+
+It is of course possible that the model is wrong. Consider also, though, the note on confirmation bias from \sectionref{section:precision-and-bias}. It is possible that there really were no maxima or minima except the central maxima during the trials with small wavelengths, but since I knew in advance that there \Quote{were supposed to be some}, my bias combined with the fluctuation of the readings lead the data to show them.
+
 \pagebreak
 
 \printbibliography[heading=bibintoc]
@@ -712,6 +711,7 @@ We notice that displacement $S$ of the resultant wave will be a function of $t$.
 
 \section{Code for computer simulations}
 \subsection{Code for diffraction-free model}
+\label{appendix:diffraction-free-code}
 \pagenumbering{arabic}
 \renewcommand*{\thepage}{A\arabic{page}}
 \renewcommand{\theequation}{A.\arabic{equation}}
@@ -720,6 +720,7 @@ Below is the code used to check the diffraction-free model from \sectionref{sect
 \lstinputlisting[language=Python,  breaklines=true]{programs/compare-experiment-to-model.py}
 
 \subsection{Code for diffraction-including model}
+\label{appendix:diffraction-code}
 Below is the code used to visualise the diffraction-including model from \sectionref{section:accounting-for-diffraction}.
 
 \lstinputlisting[language=Python, breaklines=true]{programs/numerical-sums.py}
@@ -812,7 +813,44 @@ Now, using the results from \eqref{eq:first-integral}, \eqref{eq:second-integral
     \end{aligned}
 \end{flalign*}
 
+\section{Plots of diffraction-including model}
+\pagenumbering{arabic}
+\label{appendix:diffraction-plots}
+\setcounter{equation}{0}
+\renewcommand*{\thepage}{C\arabic{page}}
+\renewcommand{\theequation}{C.\arabic{equation}}
 
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{C.\arabic{figure}}
+
+Below are the plots for the diffraction-including model from \sectionref{section:accounting-for-diffraction}.
+
+\begin{figure}[H]
+    \caption{Single slit - Small wavelength}
+    \includegraphics{diagrams/diffraction/single-slit-small-lambda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Single slit - Large wavelength}
+    \includegraphics{diagrams/diffraction/single-slit-large-lambda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Double slit - Small wavelength}
+    \includegraphics{diagrams/diffraction/double-slit-small-lambda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{Double slit - Large wavelength}
+    \includegraphics{diagrams/diffraction/double-slit-large-lambda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \caption{One slit twice as wide as the other - Large wavelength}
+    \includegraphics{diagrams/diffraction/1-2-ratio-large-lambda.png}
+\end{figure}
+
+\pagebreak
 
 \end{appendices}
 

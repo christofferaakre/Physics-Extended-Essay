@@ -73,6 +73,9 @@
 
 \newcommand{\Quote}[1]{\enquote*{#1}}
 
+\newcommand{\source}[1]{\caption*{Source: {#1}} }
+
+
 % Bibliography setup
 \addbibresource{references.bib}
 % Fix cross references
