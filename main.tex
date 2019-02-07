@@ -406,9 +406,9 @@ So, adding them together, the superposition $S$ is given by
     S = \frac{A}{d_{a}^{2}}\sin{\omega{}t} + \frac{B}{d_{b}^{2}}\sin(\omega{}t + \phi).
 \end{equation}
     
-Consider a wave that is a sum of waves of the same wavelength and phase. If we double the amplitude of the wave, then the wave's displacement will change \textbf{twice} as quickly, and thus, the wave's energy will change \textbf{four} times as quickly. Then, trivially, it will also change four times as quickly on average, and thus the intensity has quadrupled. So, we say that a wave's intensity is proportional to the square of its amplitude. The core of the argument is that the wave's \textbf{rate of change of energy} is proportional to the square of its \textbf{displacement}, and thus the intensity is proportional to the \textbf{average} if the square of the displacement of the wave. If all the parts of the wave are in phase, we can extend that and say that intensity is proportional to the amplitude of the wave since the square amplitude will indeed be proportional to the average square displacement.
+Consider a wave that is a sum of waves of the same wavelength and phase. If we double the amplitude of the wave, then the particles' displacement will change \textbf{twice} as quickly, and thus, the wave's energy will change \textbf{four} times as quickly. Then, trivially, it will also change four times as quickly on average, and thus the intensity has quadrupled. So, we say that a wave's intensity is proportional to the square of its amplitude. The core of the argument is that the wave's \textbf{rate of change of energy} is proportional to the square of its \textbf{displacement}, and thus the intensity is proportional to the \textbf{average} if the square of the displacement of the wave. If all the parts of the wave are in phase, we can extend that and say that intensity is proportional to the amplitude of the wave since the square amplitude will indeed be proportional to the average square displacement.
 
-Now, consider a wave that is the sum of waves of the samelength but \textbf{different phase}. Then, we use the same argument: The rate of change of energy will be proportional to the wave's displacement. Then,
+Now, consider a wave that is the sum of waves of the samelength but \textbf{different phase}. Then, we use the same argument: The rate of change of energy will be proportional to the particles' displacement. Then,
             
 
 Squaring the above expression in \eqref{eq:S-of-t} gives the rate of change of energy $I(t)$ at a given point at a specific time:
@@ -572,6 +572,7 @@ then the effects of diffraction would be negligible.
 The results above seem to support this.
 
 \section{Accounting for diffraction}
+\label{section:accounting-for-diffraction}
 
 The intensity formula from \eqref{eq:expression-for-intensity} derived in \sectionref{section:intensity-formula} only accounts for interference between the waves. It assumes the waves travel as plane waves from the source to the slits, and then spread out like a point source at the slits. In fact, as long as the wavelength is as large or larger than the slit widths, then there will be a diffraction pattern as well. As discussed in \sectionref{section:intensity-formula}, if the wavelength is much larger than the slit widths, the effects of diffraction can be ignored. We will not attempt to extend our theory to account for diffraction as well.
 
@@ -677,59 +678,29 @@ We will now take the limit as $n$ goes to infinity, yielding the actual resultan
     \Lambda = \lim_{n \to \infty} \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{n \times d_a^2(i)} \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(i))\right).
 \end{equation*}
 
+Using precisely the same argument for slit $B$, we have the following expression for the resultant wave $\beta$ coming from slit $B$:
 
-If $D$ is large relative to the slit widths, than for any $i$ and $n$, $d_a \approx d_a(i)$. Thus.
-
-\begin{equation}
-    \label{eq:sum-Lambda}
-    \Lambda = \lim_{n \to \infty} \frac{1}{d_a^2} \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{n} \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(i))\right).
-\end{equation}
-
-Let us define a function $f$:
+Since $n$ is constant with respect to $i$, we can move it outside the summation:
 
 \begin{equation*}
-    f : x \to \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(x) \right).
+        \Lambda = \lim_{n \to \infty} \frac{1}{n}\sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{ d_a^2(i)} \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(i))\right).
 \end{equation*}
-
-Since $d_a$ is constant with respect to $i$, we can move it outside the summation, and since it is constant with respect to $n$, we can move it outside the limit. Notice also that we can rewrite the sine function we have in the sum as $f(i)$:
 
 \begin{equation*}
-    \Lambda = \frac{1}{d_a^2} \lim_{n \to \infty} \sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} f(i)\frac{1}{n}
+    \beta = \lim_{n \to \infty} \frac{1}{n}\sum_{i = -\frac{n - 1}{2}}^{\frac{n - 1}{2}} \frac{1}{d_b^2(i)} \sin\left(\omega t + \frac{2\pi}{\lambda}(d_a - d_a(i))\right).
 \end{equation*}
 
-Notice that $f(i)\frac{1}{n}$ is the area of a rectangle whose base is $1/n$ and whose height is $f(i)$. By summing from $i = -\frac{n - 1}{2}$ to $\frac{n - 1}{2}$ we are adding together the area of $\frac{n - 1}{2} - \left(-\frac{n - 1}{2}\right) + 1 = n$ of these rectangles. The combined length of all these rectangles will be $1$, and our summation limits are symmetric about $0$. As $n$ tends to infinity, our sum tends towards the following integral:
-
-\begin{equation*}
-    \Lambda = \frac{1}{d_a^2}\int_{-1/2}^{1/2}f(x) \; dx.
-\end{equation*}
-
-Plugging in $i = \frac{n - 1}{2}$ to test the upper bound, we get $f(i) = f\left(\frac{1}{2}\frac{n - 1}{n}\right)$, however, when $n$ tends to infinity, $\frac{n - 1}{n}$ tends to $1$. Therefore, we can use limits of $-1/2$ and $1/2$ for the integral above.
-
-Now, using the formulas for $d_a$ and $d_a(i)$ from \eqref{eq:d_a} and \eqref{eq:d_a(i)} respectively, and expanding $f(x)$, we have
-
-\begin{equation*}
-    \Lambda = \frac{1}{d_a^2} \int_{-1/2}^{1/2} \sin\left[\omega t + \frac{2\pi}{\lambda}\left(\sqrt{D^2 + \left(y - \frac{B + S}{2}\right)^2} - \sqrt{D^2 + \left(y + x - \frac{B + S}{2}\right)^2}\right)\right] \; dx.
-\end{equation*}
-
-Using the exact same reasoning for slit $B$, and using the formula for $d_b$ given in \eqref{eq:d_b}, we have
-
-\begin{equation*}
-    d_b(i) = \sqrt{D^2 + \left(y + \frac{iB}{n - 1} + \frac{A + S}{2}\right)^2}.
-\end{equation*}
-
-Then, continuing the derivation in precisely the same way we did with slit A, we obtain an expression for the resultant wave $\beta$ from slit $B$:
-
-\begin{equation*}
-    \beta = \frac{1}{d_b^2} \int_{-1/2}^{1/2} \sin\left[\omega t + \frac{2\pi}{\lambda} \left(\sqrt{D^2 + \left(y + \frac{A + S}{2}\right)^2} - \sqrt{D^2 + \left(y + x + \frac{A + S}{2}\right)^2}\right) \right] \; dx.
-\end{equation*}
-
-Then, the superposition $S$ of the resultant waves from $A$ and $B$ is given by
+Then, the superposition $S$ is given by
 
 \begin{equation*}
     S = \Lambda + \beta.
 \end{equation*}
 
-Notice both $\Lambda$ and $\beta$ are integrals with respect to $x$, but depend on $t$. Thus, when these integrals are evaluated, we will still have a function that depends on time. 
+We notice that displacement $S$ of the resultant wave will be a function of $t$. To find the intensity, we will integrate the square of $S$ from $0$ to $2\pi / \omega$ with respect to $t$ and divide by $2\pi / \omega$:
+
+\begin{equation*}
+    I = \frac{\omega}{2\pi}\int_{0}^{2\pi / \omega} (\Lambda + \beta) \; dt.
+\end{equation*}
 
 \pagebreak
 
@@ -739,13 +710,20 @@ Notice both $\Lambda$ and $\beta$ are integrals with respect to $x$, but depend 
 
 \begin{appendices}
 
-\section{Code for computer simulation}
+\section{Code for computer simulations}
+\subsection{Code for diffraction-free model}
 \pagenumbering{arabic}
 \renewcommand*{\thepage}{A\arabic{page}}
 \renewcommand{\theequation}{A.\arabic{equation}}
 \setcounter{equation}{0}
-Below is the code used to generate the theoretical prediction. The X and Y arrays are filled with data from the experiment. For brevity, only the computational part of the program is included here. The entire program, including the command line interface used to enter the data, set parametres, etc., and plot the data, can be found here: \url{https://github.com/christofferaakre/Physics-Extended-Essay/blob/master/programs/compare-experiment-to-model.py}.
-\lstinputlisting[language=Python,  breaklines=true]{code.py}
+Below is the code used to check the diffraction-free model from \sectionref{section:intensity-formula} against experimental data.
+\lstinputlisting[language=Python,  breaklines=true]{programs/compare-experiment-to-model.py}
+
+\subsection{Code for diffraction-including model}
+Below is the code used to visualise the diffraction-including model from \sectionref{section:accounting-for-diffraction}.
+
+\lstinputlisting[language=Python, breaklines=true]{programs/numerical-sums.py}
+
 
 \section{Evaluation of intensity integral}
 
