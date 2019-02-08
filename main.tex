@@ -4,6 +4,7 @@
 \newcommand{\daformula}[0]{\sqrt{D^2 + \left(y - \frac{B + S}{2}\right)^2}}
 \newcommand{\dbformula}[0]{\sqrt{D^2 + \left(y + \frac{A + S}{2}\right)^2}}
 \date{}
+\author{}
 % Project metadata
 
 \title{An exploration of the double slit experiment with different width slits and sound waves}
@@ -21,7 +22,7 @@
     rather than restricting itself to two slits of the same width.
 \end{abstract}
 
-Word count: 3705 (excluding appendices)
+Word count: 3731 (excluding appendices)
 
 \pagebreak
 \tableofcontents
@@ -471,32 +472,6 @@ as wide as the other. For two of these cases, the experiment was performed first
 a wavelength approximately as large as the largest slit, and afterwards with a wavelength much
 larger than the largest slit width. The third case was only investigated with a large wavelength.
 
-\subsubsection{A note on precision and confirmation bias}
-\label{section:precision-and-bias}
-Unfortunately, it has to be admitted that the results below most likely suffer from a severe case of confirmation bias and bad precision. There was a lot of background noise (construction work) present during the measurements, and there was never a time when the intensity reading \Quote{settled} properly; the reading was fluctuating wildly, with a range of a few decibel. A fluctuation of a few decibel is in fact crushing when it is considered that the decibel difference between each consecutive measurement is also only a few decibel. When the experiment was conducted, the rough shape of double-slit and single-slit curves was known. So, when a choice had to be made whether the reading was e.g $61$, $62$, $63$, or $64$ dB (not actual values), I would be more likely to choose the reading that, relative to the previous readings so far in the trial, would best conform to the known shape. I also knew in advance what curve my model predicted. I knew that it didn't include any maxima or minima except the central maxima. Thinking my model \textbf{should} be correct for large wavelengths, I might have ignored maxima or minima that were actually there. Or, conversely, during the trials with small wavelengths, I knew that there \Quote{were supposed to be other maxima/minima}. In hindsight, it would likely have been a better idea to collect experimental data first, and only then start working on the model. The reader will probably be surprised at how \Quote{nice} the curves with small wavelengths look; This could be explained by the narrow range of values and confirmation bias.
-
-Let us say two points have decibel readings $\beta_1$ and $\beta_2$ which correspond to actual intensities $I_1$ and $I_2$ respectively. Let $I_2 / I_1 = a$. Then, using the formula for decibels from \eqref{eq:intensity-to-decibel}, we have
-
-\begin{equation*}
-    \frac{I_1}{I_2} = a \implies \frac{\cancel{I_0} \times 10^{\beta_1 / 10}}{\cancel{I_0} \times 10^{\beta_2 / 10}} = a.
-\end{equation*}
-
-Solving for $\lvert \beta_1 - \beta_2\rvert$, the decibel difference, we get
-
-\begin{equation*}
-    \lvert \beta_1 - \beta_2 \rvert = \lvert 10\log a \rvert.
-\end{equation*}
-
-In the first plot below, the central maximum has a relative intensity $1$, and the first maximum to the right has an intensity $0.4$. So, the ratio of these, using $I_1 = 1, I_2 = 0.4$, is
-$5/2$. Then, we get
-
-\begin{equation*}
-    \lvert \beta_1 - \beta_2 \rvert \approx 4 \; \textnormal{dB}.
-\end{equation*}
-
-So, unless the reading was off by four decibel, the experimental results cannot be purely due to reading error.
-
-
 \subsubsection{Graphs}
 \sectionparagraph{One slit}
 Below is a plot of the predicted results vs. the measured results for a small wavelength:
@@ -687,19 +662,46 @@ We notice that displacement $S$ of the resultant wave will be a function of $t$.
 \end{equation*}
 
 The Python code used to evaluate this integral is given in \textbf{\hyperref[appendix:diffraction-code]{Appendix A.2}}
+\section{Evaluation}
+
+\subsection{Evaluation of experimental results}
+\label{section:precision-and-bias}
+Unfortunately, it has to be admitted that the results below most likely suffer from a severe case of confirmation bias and bad precision. There was a lot of background noise (construction work) present during the measurements, and there was never a time when the intensity reading \Quote{settled} properly; the reading was fluctuating with a range of a few decibel. A fluctuation of a few decibel is in fact crushing when it is considered that the decibel difference between each consecutive measurement is also only a few decibel. When the experiment was conducted, the rough shape of double-slit and single-slit curves was known. So, when a choice had to be made whether the reading was e.g $61$, $62$, $63$, or $64$ dB (not actual values), I would be more likely to choose the reading that, relative to the previous readings so far in the trial, would best conform to the known shape. I also knew in advance what curve my model predicted. I knew that it didn't include any maxima or minima except the central maxima. Thinking my model \textbf{should} be correct for large wavelengths, I might have ignored maxima or minima that were actually there. Or, conversely, during the trials with small wavelengths, I knew that there \Quote{were supposed to be other maxima/minima}, and so I would be prone to exaggerating increases or decreases in intensity. In hindsight, it would likely have been a better idea to collect experimental data first, and only then start working on the model. The reader will probably be surprised at how \Quote{nice} the curves with small wavelengths look; This could be explained by the narrow range of values and confirmation bias.
+
+Let us say two points have decibel readings $\beta_1$ and $\beta_2$ which correspond to actual intensities $I_1$ and $I_2$ respectively. Let $I_2 / I_1 = a$. Then, using the formula for decibels from \eqref{eq:intensity-to-decibel}, we have
+
+\begin{equation*}
+    \frac{I_1}{I_2} = a \implies \frac{\cancel{I_0} \times 10^{\beta_1 / 10}}{\cancel{I_0} \times 10^{\beta_2 / 10}} = a.
+\end{equation*}
+
+Solving for $\lvert \beta_1 - \beta_2\rvert$, the decibel difference, we get
+
+\begin{equation*}
+    \lvert \beta_1 - \beta_2 \rvert = \lvert 10\log a \rvert.
+\end{equation*}
+
+In the first plot from \sectionref{section:experimental-results}, the central maximum has a relative intensity $1$, and the first maximum to the right has an intensity $0.4$. So, the ratio of these, using $I_1 = 1, I_2 = 0.4$, is
+$5/2$. Then, we get
+
+\begin{equation*}
+    \lvert \beta_1 - \beta_2 \rvert \approx 4 \; \textnormal{dB}.
+\end{equation*}
+
+So, if both readings were off by $2$ dB, this would be within the margin of error. Thus, it is feasible that the maxima/minima were not really there.
 
 \subsection{Evaluation of the diffraction-including model}
+
 For all five of the trials conducted (see \sectionref{section:experimental-results}), the diffraction-including model gave very similar predictions to those of the diffraction-free-model from \sectionref{section:intensity-formula}. The plots are included in \textbf{\hyperref[appendix:diffraction-plots]{Appendix C}}.
 
-This was unexpected. As discussed earlier in the paper, we said that the diffraction-free model did not adhere to the experimental results for small wavelengths because of diffraction. But now we have a model that accounts for diffraction, and it predicts the same intensity distribution! Thus, we have two options:
+This was unexpected. As discussed earlier in the paper, we said that the diffraction-free model did not adhere to the experimental results for small wavelengths because of diffraction. But now we have a model that accounts for diffraction, and it predicts almost the same intensity distribution! Thus, we have two options:
 
 \begin{boldenumerate}
-    \item The diffraction-including model is wrong. Either Huygen's principle does not apply here, we applied it incorrectly, there is an error in the mathematics somewhere, or the code is wrong.
+    \item The diffraction-including model is wrong. Either we applied Huygen's principle incorrectly, there is an error in the mathematics somewhere, or the code is wrong.
     
     \item The measurements are incorrect.
 \end{boldenumerate}
 
-It is of course possible that the model is wrong. Consider also, though, the note on confirmation bias from \sectionref{section:precision-and-bias}. It is possible that there really were no maxima or minima except the central maxima during the trials with small wavelengths, but since I knew in advance that there \Quote{were supposed to be some}, my bias combined with the fluctuation of the readings lead the data to show them.
+It is of course possible that the model is wrong. Consider also, though, the discussion of the reliability of the experimental results above. It is possible that there really were no maxima or minima except the central maxima during the trials with small wavelengths, but since I knew in advance that there \Quote{were supposed to be some}, my bias combined with the fluctuation of the readings lead the data to show them.
 
 \pagebreak
 
